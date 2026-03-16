@@ -23,7 +23,13 @@ jobs:
 
       - name: Install dependencies
         run: pip install feedparser openai
+# 增加这一步：给云端服务器安装 PDF 引擎和中文字体
 
+      - name: Install PDF Engine and Chinese Fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wkhtmltopdf fonts-wqy-microhei
+          
       - name: Run Python script
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}

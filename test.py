@@ -1,3 +1,5 @@
+import markdown
+import pdfkit
 import os
 import re
 import feedparser
@@ -105,3 +107,43 @@ with open(filename, "w", encoding="utf-8") as f:
 print("="*40)
 print("✅ 研报级 AI 自动化简报生成并保存完毕！")
 print("="*40)
+# ================= 5. 生成精美的 PDF 文件 =================
+print(f"📄 正在将报告排版并导出为 PDF: {filename.replace('.md', '.pdf')} ...")
+
+# 1. 先把 Markdown 转换成带样式的 HTML
+html_content = f"""
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        /* 这里是我们给 PDF 定制的排版样式，让它看起来像专业研报 */
+        body {{ 
+            font-family: 'WenQuanYi Micro Hei', 'Microsoft YaHei', sans-serif; 
+            padding: 40px; 
+            line-height: 1.8; 
+            color: #333;
+        }}
+        h1 {{ color: #1D4ED8; text-align: center; border-bottom: 2px solid #1D4ED8; padding-bottom: 10px; }}
+        h2 {{ color: #2563EB; margin-top: 30px; }}
+        h3 {{ color: #3B82F6; }}
+        a {{ color: #1D4ED8; text-decoration: none; }}
+        li {{ margin-bottom: 12px; }}
+    </style>
+</head>
+<body>
+    <h1>📊 全球 AI 领域关键动态报告 ({today_str})</h1>
+    <p><em>本报告由 AI 自动聚合全网资讯并深度分析生成，旨在提供宏观与微观层面的产业洞察。</em></p>
+    <hr>
+    {markdown.markdown(report_content)}
+</body>
+</html>
+"""
+
+# 2. 调用引擎生成 PDF
+try:
+    pdf_filename = f"AI_News_{today_str}.pdf"
+    pdfkit.from_string(html_content, pdf_filename)
+    print("✅ PDF 导出成功！")
+except Exception as e:
+    print(f"❌ PDF 生成失败，请检查环境配置: {e}")
