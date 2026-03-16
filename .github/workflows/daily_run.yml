@@ -1,0 +1,38 @@
+name: AI Daily News Bot
+
+on:
+  schedule:
+    # 每天北京/新加坡时间早上 8 点运行 (UTC时间 0 点)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 允许手动点击运行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 赋予把文件写回仓库的权限
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install feedparser openai
+
+      - name: Run Python script
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python test.py
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add *.md
+          git commit -m "📝 Auto-generated AI Daily News" || echo "No changes to commit"
+          git push
