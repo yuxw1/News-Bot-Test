@@ -90,7 +90,7 @@ try:
     response = client.chat.completions.create(
         model="arcee-ai/trinity-large-preview:free", # 保持使用你之前选定的免费模型
         messages=[{"role": "user", "content": prompt}],
-        temperature=0.3
+        temperature=0.3,
         max_tokens=4000
     )
     report_content = response.choices[0].message.content
