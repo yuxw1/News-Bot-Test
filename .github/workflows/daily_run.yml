@@ -21,10 +21,11 @@ jobs:
         with:
           python-version: '3.10'
 
+      # 修复 1：把 markdown 和 pdfkit 加到安装列表里
       - name: Install dependencies
-        run: pip install feedparser openai
-# 增加这一步：给云端服务器安装 PDF 引擎和中文字体
+        run: pip install feedparser openai markdown pdfkit
 
+      # 增加这一步：给云端服务器安装 PDF 引擎和中文字体
       - name: Install PDF Engine and Chinese Fonts
         run: |
           sudo apt-get update
@@ -39,6 +40,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action Bot"
-          git add *.md
-          git commit -m "📝 Auto-generated AI Daily News" || echo "No changes to commit"
+          # 修复 2：加上 *.pdf，让它把 PDF 文件也一起传回你的 GitHub 仓库
+          git add *.md *.pdf
+          git commit -m "📝 Auto-generated AI Daily News (MD & PDF)" || echo "No changes to commit"
           git push
