@@ -56,7 +56,7 @@ client = OpenAI(
 
 # ================= 3. 让 AI 编写研报级日报 =================
 prompt = f"""
-你是一个顶级的 AI 行业分析师和新闻主编。请严格按照以下结构和格式，将我提供的多语种新闻生肉数据，整理、翻译并深加工成一份高质量的《全球AI领域关键动态报告》。
+你是一个顶级的 AI 行业分析师和新闻主编。请严格按照以下结构和格式，记住是严格按照，将我提供的多语种新闻生肉数据，整理、翻译并深加工成一份高质量的《全球AI领域关键动态报告》。
 
 【分类结构要求】
 请尽量将新闻归入以下分类（如果没有相关新闻，则直接省略该分类标题，不要硬编）：
@@ -91,8 +91,7 @@ try:
     response = client.chat.completions.create(
         model="arcee-ai/trinity-large-preview:free", # 保持使用你之前选定的免费模型
         messages=[{"role": "user", "content": prompt}],
-        temperature=0.3,
-        max_tokens=4000
+        temperature=0.3
     )
     report_content = response.choices[0].message.content
 except Exception as e:
