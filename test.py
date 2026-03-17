@@ -90,7 +90,7 @@ prompt = f"""
 print("🧠 正在呼叫 AI 进行深度分析与研报生成，这可能需要几十秒到一分钟，请稍候...")
 try:
     response = client.chat.completions.create(
-        model="Qwen/Qwen2.5-7B-Instruct", # 保持使用你之前选定的免费模型
+        model="Qwen/Qwen3.5-4B", # 保持使用你之前选定的免费模型
         messages=[{"role": "user", "content": prompt}],
         temperature=0.3
     )
