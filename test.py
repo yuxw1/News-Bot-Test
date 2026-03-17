@@ -50,7 +50,7 @@ if not api_key:
     raise ValueError("❌ 找不到 API Key，请检查 GitHub Secrets (OPENROUTER_API_KEY) 是否配置正确！")
 
 client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
     api_key=api_key, 
 )
 
@@ -74,7 +74,7 @@ prompt = f"""
 对于每一条具有价值的新闻，必须严格采用以下 Markdown 列表格式输出：
   * **[精炼的新闻核心短标题]* 
   **🔗 原文链接**：这里必须原样复制对应的 http 网址，绝不能省略！**
-  * **事件描述**：用客观、精炼的中文简述该事件的核心事实（人物、事件、时间、地点）。
+  * **事件描述**：用客观的中文简述该事件的核心事实（人物、事件、时间、地点）。
   * **重要性分析**：以资深分析师的视角，深度点评该事件对行业格局、技术演进或商业生态的深远影响。
 
 ⚠️ 强制核心要求（至关重要）：
