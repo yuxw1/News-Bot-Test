@@ -50,7 +50,7 @@ if not api_key:
     raise ValueError("❌ 找不到 API Key，请检查 GitHub Secrets (OPENROUTER_API_KEY) 是否配置正确！")
 
 client = OpenAI(
-    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    base_url="https://api.deepseek.com",
     api_key=api_key, 
 )
 
