@@ -50,7 +50,7 @@ if not api_key:
     raise ValueError("❌ 找不到 API Key，请检查 GitHub Secrets (OPENROUTER_API_KEY) 是否配置正确！")
 
 client = OpenAI(
-    base_url="https://api.deepseek.com",
+    base_url="https://openrouter.ai/api/v1",
     api_key=api_key, 
 )
 
@@ -90,7 +90,7 @@ prompt = f"""
 print("🧠 正在呼叫 AI 进行深度分析与研报生成，这可能需要几十秒到一分钟，请稍候...")
 try:
     response = client.chat.completions.create(
-        model="arcee-ai/trinity-large-preview:free", # 保持使用你之前选定的免费模型
+        model="qwen/qwen3-next-80b-a3b-instruct:free", # 保持使用你之前选定的免费模型
         messages=[{"role": "user", "content": prompt}],
         temperature=0.3
     )
